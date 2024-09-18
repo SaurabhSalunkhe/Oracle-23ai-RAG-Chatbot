@@ -50,7 +50,7 @@ Before you begin, ensure you have the following:
 git clone https://github.com/SaurabhSalunkhe/Oracle-23ai-RAG-Chatbot.git
 ```
 
-2. Update and Install Dependencies (Oracle Linux)
+### 2. Update and Install Dependencies (Oracle Linux)
 ```
 sudo yum update -y
 sudo yum install git -y
@@ -58,7 +58,7 @@ sudo yum groupinstall -y "Development Tools"
 sudo yum install -y bzip2-devel openssl-devel libffi-devel zlib-devel wget
 ```
 
-3. Install Python 3.11.x
+### 3. Install Python 3.11.x
 Ensure Python version 3.11.x is installed.
 
 ```
@@ -66,20 +66,20 @@ sudo yum install -y python3.11
 python3.11 --version
 ```
 
-4. Create and Activate Virtual Environment
+### 4. Create and Activate Virtual Environment
 ```
 cd Oracle-23ai-RAG-Chatbot
 python3.11 -m venv venv
 source venv/bin/activate
 ```
 
-5. Install Python Dependencies
+### 5. Install Python Dependencies
 
 ```
 pip install -r requirements.txt
 ```
 
-6. Configure OCI Authentication
+### 6. Configure OCI Authentication
 a. Create the .oci Directory
 
 ```
@@ -88,9 +88,10 @@ mkdir -p /home/opc/.oci
 
 b. Generate OCI API Keys
 Follow the OCI SDK Configuration Guide to generate your API keys.
+https://docs.oracle.com/en-us/iaas/Content/API/Concepts/sdkconfig.htm 
 
 
-7. Set Up Oracle Database 23AI
+### 7. Set Up Oracle Database 23AI
 a. Run SQL Commands from create_tables.sql
 Create the User and Grant Privileges
 
@@ -147,24 +148,24 @@ COHERE_API_KEY = ""  # Optional but recommended
 ```
 
 Execute Chatbot
-1. Run the Streamlit Application
+### 1. Run the Streamlit Application
 
 ```
 streamlit run app.py
 ```
 
-2. Run the App in the Background
+### 2. To Run the App in the Background
 
 ```
 nohup streamlit run app.py &
 ```
 
-Explanation:
+### Explanation:
 nohup allows the process to continue running after you log out.
 & runs the process in the background.
 
 
-3. Access the Chatbot
+### 3. Access the Chatbot
 Open your browser and navigate to http://<Your_VM_IP>:8501.
 
 You should see the chatbot interface as shown below:
