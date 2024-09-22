@@ -57,7 +57,7 @@ tar -xvzf Python-3.11.0.tgz --strip-components=1 -C /home/$USER/python
 cd $HOME/python
 ./configure --prefix=$HOME/python
 make clean; make
-sudo make altinstall
+make altinstall
 
 export PYTHONHOME=$HOME/python
 export PATH=$PYTHONHOME/bin:$PATH
