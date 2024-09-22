@@ -64,8 +64,8 @@ export PATH=$PYTHONHOME/bin:$PATH
 export LD_LIBRARY_PATH=$PYTHONHOME/lib:$LD_LIBRARY_PATH
 
 cd $HOME/python/bin
-ln -s python3.12 python3
-ln -s pip3.12 pip3
+ln -s python3.11 python3
+ln -s pip3.11 pip3
 
 ```
 
