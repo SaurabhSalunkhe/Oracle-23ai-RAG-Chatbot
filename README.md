@@ -1,4 +1,4 @@
-# Build a RAG based chatbot with Oracle Database 23ai and llama-index
+# Build a RAG based chatbot with Oracle Database 23ai, OCI Generative AI and llama-index
 
 [![Python Version](https://img.shields.io/badge/python-3.11.x-blue.svg)](https://www.python.org/downloads/release/python-3110/)
 
