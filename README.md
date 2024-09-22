@@ -51,11 +51,22 @@ sudo yum update -y && sudo yum install -y git python3 && sudo yum groupinstall -
 Ensure Python version 3.11.x is installed.
 
 ```
+mkdir -p $HOME/python
 wget https://www.python.org/ftp/python/3.11.0/Python-3.11.0.tgz
-tar -xvzf Python-3.11.0.tgz
-cd Python-3.11.0
-make
-make altinstall
+tar -xvzf Python-3.11.0.tgz --strip-components=1 -C /home/$USER/python
+cd $HOME/python
+./configure --prefix=$HOME/python
+make clean; make
+sudo make altinstall
+
+export PYTHONHOME=$HOME/python
+export PATH=$PYTHONHOME/bin:$PATH
+export LD_LIBRARY_PATH=$PYTHONHOME/lib:$LD_LIBRARY_PATH
+
+cd $HOME/python/bin
+ln -s python3.12 python3
+ln -s pip3.12 pip3
+
 ```
 
 ### 4. Create and Activate Virtual Environment
@@ -82,6 +93,7 @@ b. Generate OCI API Keys
 Follow the OCI SDK Configuration Guide to generate your API keys.
 https://docs.oracle.com/en-us/iaas/Content/API/Concepts/sdkconfig.htm 
 
+https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#apisigningkey_topic_How_to_Generate_an_API_Signing_Key_Console 
 
 ### 7. Set Up Oracle Database 23AI
 a. Run SQL Commands from create_tables.sql
