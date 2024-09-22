@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Accessing the right answers from vast data repositories is a challenge many organizations face. A **Retrieval-Augmented Generation (RAG)** based system can revolutionize how users interact with their data by making information easily accessible and up-to-date. In this workshop, we’ll build a RAG-based chatbot using **Oracle Database 23AI** and **OCI Generative AI** services, allowing users to chat with their unstructured data like PDF, CSV, and TXT files. This approach combines advanced retrieval techniques with generative AI, creating a powerful solution for intelligent and dynamic data interaction.
+Accessing the right answers from vast data repositories is a challenge many organizations face. A **Retrieval-Augmented Generation (RAG)** based system can revolutionize how users interact with their data by making information easily accessible and up-to-date. In this workshop, we’ll build a RAG-based chatbot using **Oracle Database 23ai** and **OCI Generative AI** services, allowing users to chat with their unstructured data like PDF, CSV, and TXT files. This approach combines advanced retrieval techniques with generative AI, creating a powerful solution for intelligent and dynamic data interaction.
 
 
 ## What is RAG?
@@ -95,13 +95,13 @@ https://docs.oracle.com/en-us/iaas/Content/API/Concepts/sdkconfig.htm
 
 https://docs.oracle.com/en-us/iaas/Content/API/Concepts/apisigningkey.htm#apisigningkey_topic_How_to_Generate_an_API_Signing_Key_Console 
 
-### 7. Set Up Oracle Database 23AI
+### 7. Set Up Oracle Database 23ai
 a. Run SQL Commands from create_tables.sql
 Create the User and Grant Privileges
 
 ```
 -- Create the user with a specified password
-CREATE USER ai_user IDENTIFIED BY "EXampleassword#_123";
+CREATE USER ai_user IDENTIFIED BY "EXamplepassword#_123";
 
 -- Grant DBA privileges for full administrative access
 GRANT DBA TO ai_user;
@@ -139,37 +139,31 @@ a. Edit config.py
 Update the following parameters with your details:
 
 ```
-# DB connections
-DB_USER = ""
-DB_PWD = ""
+# DB connections (Below are example credentials. Substitute with your credentials)
+DB_USER = "ai_user"
+DB_PWD = "EXamplepassword#_123"
 DB_HOST_IP = "ip:1521"
-DB_SERVICE = ""
+DB_SERVICE = "example_PDB1.sub07260203110.vcnss.oraclevcn.com"
 
 # GenAI configurations
-COMPARTMENT_OCID = ""
+COMPARTMENT_OCID = "ocid1.compartment.oc1..xxxxxxxxx"
 ENDPOINT = "https://inference.generativeai.us-chicago-1.oci.oraclecloud.com"
-COHERE_API_KEY = ""  # Optional but recommended
+COHERE_API_KEY = "xxxxxxxxxxx"  # Optional but recommended
 ```
 
-Execute Chatbot
-### 1. Run the Streamlit Application
+### 8. Run the Streamlit Application
 
 ```
 streamlit run app.py
 ```
 
-### 2. To Run the App in the Background
+### 9. To Run the App in the Background
 
 ```
 nohup streamlit run app.py &
 ```
 
-### Explanation:
-nohup allows the process to continue running after you log out.
-& runs the process in the background.
-
-
-### 3. Access the Chatbot
+### 10. Access the Chatbot
 Open your browser and navigate to http://<Your_VM_IP>:8501.
 
 You should see the chatbot interface as shown below:
