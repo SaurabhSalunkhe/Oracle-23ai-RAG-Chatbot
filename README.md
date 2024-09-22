@@ -43,10 +43,8 @@ git clone https://github.com/SaurabhSalunkhe/Oracle-23ai-RAG-Chatbot.git
 
 ### 2. Update and Install Dependencies (Oracle Linux)
 ```
-sudo yum update -y
-sudo yum install git -y
-sudo yum groupinstall -y "Development Tools"
-sudo yum install -y bzip2-devel openssl-devel libffi-devel zlib-devel wget
+sudo yum update -y && sudo yum install -y git python3 && sudo yum groupinstall -y "Development Tools" && sudo yum install -y bzip2-devel openssl-devel libffi-devel zlib-devel wget libffi-devel openssl openssl-devel tk-devel xz-devel zlib-devel bzip2-devel readline-devel libuuid-devel ncurses-devel libaio
+
 ```
 
 ### 3. Install Python 3.11.x
