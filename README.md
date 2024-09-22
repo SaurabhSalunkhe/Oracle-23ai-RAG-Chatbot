@@ -51,8 +51,11 @@ sudo yum update -y && sudo yum install -y git python3 && sudo yum groupinstall -
 Ensure Python version 3.11.x is installed.
 
 ```
-sudo yum install -y python3.11
-python3.11 --version
+wget https://www.python.org/ftp/python/3.11.0/Python-3.11.0.tgz
+tar -xvzf Python-3.11.0.tgz
+cd Python-3.11.0
+make clean; make
+make altinstall
 ```
 
 ### 4. Create and Activate Virtual Environment
