@@ -54,7 +54,7 @@ Ensure Python version 3.11.x is installed.
 wget https://www.python.org/ftp/python/3.11.0/Python-3.11.0.tgz
 tar -xvzf Python-3.11.0.tgz
 cd Python-3.11.0
-make clean; make
+make
 make altinstall
 ```
 
