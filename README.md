@@ -170,3 +170,134 @@ You should see the chatbot interface as shown below:
 
 ![Chatbot UI](./screenshot.png)
 
+# Contributing to this repository
+
+We welcome your contributions! There are multiple ways to contribute.
+
+## Opening issues
+
+For bugs or enhancement requests, please file a GitHub issue unless it's
+security related. When filing a bug remember that the better written the bug is,
+the more likely it is to be fixed. If you think you've found a security
+vulnerability, do not raise a GitHub issue and follow the instructions in our
+[security policy](./SECURITY.md).
+
+## Contributing code
+
+We welcome your code contributions. Before submitting code via a pull request,
+you will need to have signed the [Oracle Contributor Agreement][OCA] (OCA) and
+your commits need to include the following line using the name and e-mail
+address you used to sign the OCA:
+
+```text
+Signed-off-by: Your Name <you@example.org>
+```
+
+This can be automatically added to pull requests by committing with `--sign-off`
+or `-s`, e.g.
+
+```text
+git commit --signoff
+```
+
+Only pull requests from committers that can be verified as having signed the OCA
+can be accepted.
+
+## Pull request process
+
+1. Ensure there is an issue created to track and discuss the fix or enhancement
+   you intend to submit.
+1. Fork this repository.
+1. Create a branch in your fork to implement the changes. We recommend using
+   the issue number as part of your branch name, e.g. `1234-fixes`.
+1. Ensure that any documentation is updated with the changes that are required
+   by your change.
+1. Ensure that any samples are updated if the base image has been changed.
+1. Submit the pull request. *Do not leave the pull request blank*. Explain exactly
+   what your changes are meant to do and provide simple steps on how to validate.
+   your changes. Ensure that you reference the issue you created as well.
+1. We will assign the pull request to 2-3 people for review before it is merged.
+
+## Code of conduct
+
+Follow the [Golden Rule](https://en.wikipedia.org/wiki/Golden_Rule). If you'd
+like more specific guidelines, see the [Contributor Covenant Code of Conduct][COC].
+
+[OCA]: https://oca.opensource.oracle.com
+[COC]: https://www.contributor-covenant.org/version/1/4/code-of-conduct/
+
+# Reporting security vulnerabilities
+
+Oracle values the independent security research community and believes that
+responsible disclosure of security vulnerabilities helps us ensure the security
+and privacy of all our users.
+
+Please do NOT raise a GitHub Issue to report a security vulnerability. If you
+believe you have found a security vulnerability, please submit a report to
+[secalert_us@oracle.com][1] preferably with a proof of concept. Please review
+some additional information on [how to report security vulnerabilities to Oracle][2].
+We encourage people who contact Oracle Security to use email encryption using
+[our encryption key][3].
+
+We ask that you do not use other channels or contact the project maintainers
+directly.
+
+Non-vulnerability related security issues including ideas for new or improved
+security features are welcome on GitHub Issues.
+
+## Security updates, alerts and bulletins
+
+Security updates will be released on a regular cadence. Many of our projects
+will typically release security fixes in conjunction with the
+Oracle Critical Patch Update program. Additional
+information, including past advisories, is available on our [security alerts][4]
+page.
+
+## Security-related information
+
+We will provide security related information such as a threat model, considerations
+for secure use, or any known security issues in our documentation. Please note
+that labs and sample code are intended to demonstrate a concept and may not be
+sufficiently hardened for production use.
+
+[1]: mailto:secalert_us@oracle.com
+[2]: https://www.oracle.com/corporate/security-practices/assurance/vulnerability/reporting.html
+[3]: https://www.oracle.com/security-alerts/encryptionkey.html
+[4]: https://www.oracle.com/security-alerts/
+
+Copyright (c) 2024 Oracle and/or its affiliates.
+
+The Universal Permissive License (UPL), Version 1.0
+
+Subject to the condition set forth below, permission is hereby granted to any
+person obtaining a copy of this software, associated documentation and/or data
+(collectively the "Software"), free of charge and under any and all copyright
+rights in the Software, and any and all patent rights owned or freely
+licensable by each licensor hereunder covering either (i) the unmodified
+Software as contributed to or provided by such licensor, or (ii) the Larger
+Works (as defined below), to deal in both
+
+(a) the Software, and
+(b) any piece of software and/or hardware listed in the lrgrwrks.txt file if
+one is included with the Software (each a "Larger Work" to which the Software
+is contributed by such licensors),
+
+without restriction, including without limitation the rights to copy, create
+derivative works of, display, perform, and distribute the Software and make,
+use, sell, offer for sale, import, export, have made, and have sold the
+Software and the Larger Work(s), and to sublicense the foregoing rights on
+either these or other terms.
+
+This license is subject to the following condition:
+The above copyright notice and either this complete permission notice or at
+a minimum a reference to the UPL must be included in all copies or
+substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
