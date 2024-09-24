@@ -28,7 +28,7 @@ Before you begin, ensure you have the following:
   [Documentation](https://docs.oracle.com/en-us/iaas/Content/GenerativeAI/home.htm)
   
 - **LlamaIndex**  
-  [Documentation](https://llamaindex.readthedocs.io/en/latest/)
+  [Documentation](https://pypi.org/project/llama-index/)
   
 - **Python Dependencies**  
   Listed in the `requirements.txt` file in the repository.
