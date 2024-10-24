@@ -58,6 +58,7 @@ wget https://www.python.org/ftp/python/3.11.0/Python-3.11.0.tgz
 tar -xvzf Python-3.11.0.tgz --strip-components=1 -C /home/$USER/python
 cd $HOME/python
 ./configure --prefix=$HOME/python
+./configure --enable-optimizations
 make clean; make
 make altinstall
 
