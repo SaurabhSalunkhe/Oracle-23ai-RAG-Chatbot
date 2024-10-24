@@ -30,8 +30,12 @@ from config import (
     DB_HOST_IP,
     DB_SERVICE,
     EMBEDDINGS_BITS,
-    ADD_PHX_TRACING
-    )
+    ADD_PHX_TRACING,
+    DSN,
+    WALLET_LOCATION,
+    WALLET_PASSWORD,
+    CONFIG_DIR
+)
 
 # Phoenix tracing setup if enabled
 if ADD_PHX_TRACING:
@@ -81,23 +85,38 @@ def oracle_query(embed_query: List[float], top_k: int, verbose=True, approximate
 
     Args:
         embed_query (List[float]): A list of floats representing the query vector embedding.
-        top_k (int, optional): The number of closest vectors to retrieve. Defaults to 2.
-        verbose (bool, optional): If set to True, additional information about the query and execution time will be printed. Defaults to False.
-        approximate (bool, optional): If set to True, use approximate (index) query. Defaults to False.
+        top_k (int): The number of closest vectors to retrieve.
+        verbose (bool, optional): If set to True, additional information about the query and execution time will be printed. Defaults to True.
+        approximate (bool, optional): If set to True, use approximate (index-based) query for faster results. Defaults to False.
 
     Returns:
         VectorStoreQueryResult: Object containing the query results, including nodes, similarities, and ids.
     """
-    start_time = time.time()
-    DSN = f"{DB_HOST_IP}/{DB_SERVICE}"
+    start_time = time.time()  # Record the start time of the query execution for performance monitoring
+
+    # Define the Data Source Name (DSN) for connecting to the Oracle database.
+    # DSN = f"{DB_HOST_IP}/{DB_SERVICE}"
 
     try:
-        with oracledb.connect(user=DB_USER, password=DB_PWD, dsn=DSN) as connection:
+        # Establish a connection to the Oracle database using credentials and connection parameters.
+        with oracledb.connect(user=DB_USER, password=DB_PWD, dsn=DSN,
+                              wallet_location=WALLET_LOCATION, config_dir=CONFIG_DIR,
+                              wallet_password=WALLET_PASSWORD) as connection:
+            print("Successfully connected to the database in oracle query.")
+            # Open a cursor object to execute the SQL query.
             with connection.cursor() as cursor:
+                print("Cursor created successfully.")
+
+                # Determine the array type based on the precision of the embedding values.
                 array_type = "d" if EMBEDDINGS_BITS == 64 else "f"
+
+                # Convert the query embedding into a binary array format.
                 array_query = array.array(array_type, embed_query)
+
+                # Define the clause to use approximate search if `approximate` is set to True.
                 approx_clause = "APPROXIMATE" if approximate else ""
 
+                # Construct the SQL query to retrieve the top_k closest vectors.
                 select = f"""
                     SELECT C.ID,
                            C.CHUNK,
@@ -110,44 +129,58 @@ def oracle_query(embed_query: List[float], top_k: int, verbose=True, approximate
                     FETCH {approx_clause} FIRST {top_k} ROWS ONLY
                 """
 
-                if verbose:
-                    logger.info(f"SQL Query: {select}")
-
+                # If verbose is True, log the constructed SQL query.
+               
+                # Execute the SQL query using the array_query as the parameter.
                 cursor.execute(select, [array_query])
+                print("SQL query executed successfully.")
+
+                # Fetch all rows returned by the query.
                 rows = cursor.fetchall()
 
+                # Lists to store the results: nodes, node ids, and similarities.
                 result_nodes, node_ids, similarities = [], [], []
 
+                # Iterate over each row to process and filter the results based on similarity score.
                 for row in rows:
-                   # logger.info(f"session similarity :- {st.session_state['similarity']}")
-                   # logger.info(f"1-row[3] :- {1-row[3]} and row[3]:- {row[3]}")
-                    if 1-(row[3]) >= st.session_state['similarity']:
-                        logger.info(f"{row}")
-                        full_clob_data = row[1].read()
+                    print(f"Processing row: {row}")
+                    # Check if the similarity score meets a threshold stored in the session state.
+                    if 1 - (row[3]) >= st.session_state['similarity']:
+                        print(f"Row passed similarity threshold: {row}")
+                        full_clob_data = row[1].read()  # Read the CLOB data (text content) from the database.
                         result_nodes.append(
                             TextNode(
                                 id_=row[0],
                                 text=full_clob_data,
-                                metadata={"file_name": row[4], "page#": row[2], "Similarity Score":1-(row[3])},
+                                metadata={"file_name": row[4], "page#": row[2], "Similarity Score": 1 - (row[3])},
                             )
                         )
                         node_ids.append(row[0])
                         similarities.append(row[3])
+                        print(f"Added node with ID: {row[0]}, Similarity: {1 - (row[3])}")
+                    else:
+                        print(f"Row did not meet similarity threshold: {row}")
 
     except Exception as e:
+        # Log and print any errors that occur during the database operations.
+        print(f"Error occurred in oracle_query: {e}")
         logger.error(f"Error occurred in oracle_query: {e}")
         return None
 
+    # Create the result object to return the query results.
     q_result = VectorStoreQueryResult(
         nodes=result_nodes, similarities=similarities, ids=node_ids
     )
 
+    # Calculate and log the elapsed time for the query execution.
     elapsed_time = time.time() - start_time
+    print(f"Query execution completed in {elapsed_time:.2f} seconds.")
 
     if verbose:
-        logger.info(f"Query duration: {round(elapsed_time, 1)} sec.")
+        print(f"Verbose mode: Query duration was {round(elapsed_time, 1)} seconds.")
 
     return q_result
+
 
 def save_chunks_with_embeddings_in_db(pages_id,pages_text, pages_num,embeddings, book_id, connection):
     """
@@ -191,7 +224,6 @@ class OracleVectorStore(VectorStore):
 
     stores_text: bool = True
     verbose: bool = False
-    DSN = f"{DB_HOST_IP}/{DB_SERVICE}"
 
     def __init__(self, verbose=False, enable_hnsw_indexes=False) -> None:
         """
@@ -272,7 +304,7 @@ class OracleVectorStore(VectorStore):
                 embeddings.append(node.embedding)
                 pages_num.append(node.metadata["page#"])
 
-            with oracledb.connect(user=DB_USER, password=DB_PWD, dsn=self.DSN) as connection:
+            with oracledb.connect(user=DB_USER, password=DB_PWD, dsn=self.DSN, config_dir=WALLET_LOCATION) as connection:
                 save_chunks_with_embeddings_in_db(pages_id, pages_text,pages_num, embeddings, book_id=None, connection=connection)
                 connection.commit()
 
