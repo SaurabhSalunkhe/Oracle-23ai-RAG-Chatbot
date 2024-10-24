@@ -156,6 +156,7 @@ COHERE_API_KEY = "xxxxxxxxxxx"  # Optional but recommended
 ### 8. Run the Streamlit Application
 
 ```
+sudo systemctl stop firewalld
 streamlit run app.py
 ```
 
