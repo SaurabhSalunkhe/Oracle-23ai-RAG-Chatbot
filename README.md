@@ -38,6 +38,8 @@ Before you begin, ensure you have the following:
 ### 1. Clone the Repository in your web server (Compute VM)
 
 ```bash
+sudo dnf install git
+
 git clone https://github.com/SaurabhSalunkhe/Oracle-23ai-RAG-Chatbot.git
 ```
 
